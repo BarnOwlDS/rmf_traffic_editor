@@ -134,7 +134,7 @@ class Building:
                 level_yaml,
                 self.coordinate_system,
                 self.model_counts,
-                self.global_transform)
+                None if self.coordinate_system == CoordinateSystem.cartesian_meters else self.global_transform)
 
         if 'reference_level_name' in yaml_node:
             self.reference_level_name = yaml_node['reference_level_name']
