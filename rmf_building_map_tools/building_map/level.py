@@ -54,9 +54,16 @@ class Level:
     ):
         print(f'parsing level {self.name}')
 
+        self.drawing = None
         self.drawing_name = None
         if 'drawing' in yaml_node:
             self.drawing_name = yaml_node['drawing']['filename']
+            if 'scale' in yaml_node['drawing']:
+                self.drawing = {
+                    "scale":        yaml_node['drawing']['scale'],
+                    "translation":  yaml_node['drawing']['translation'],
+                    "rotation":     yaml_node['drawing']['rotation']
+                }
 
         self.elevation = 0.0
         if 'elevation' in yaml_node:

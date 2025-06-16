@@ -153,10 +153,16 @@ class BuildingMapServer(Node):
                 self.get_logger().info(f'read {len(image.data)} byte image')
                 image.name = image_filename.split('.')[0]
                 image.encoding = image_filename.split('.')[-1]
-                image.scale = level.transform.scale
-                image.x_offset = level.transform.translation[0]
-                image.y_offset = level.transform.translation[1]
-                image.yaw = level.transform.rotation
+                if level.drawing is not None:
+                    image.scale = level.drawing["scale"]
+                    image.x_offset = level.drawing["translation"][0]
+                    image.y_offset = level.drawing["translation"][1]
+                    image.yaw = level.drawing["rotation"]
+                else:
+                    image.scale = level.transform.scale
+                    image.x_offset = level.transform.translation[0]
+                    image.y_offset = level.transform.translation[1]
+                    image.yaw = level.transform.rotation
                 msg.images.append(image)
             else:
                 self.get_logger().error(f'unable to open image: {image_path}')
