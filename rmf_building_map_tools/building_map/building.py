@@ -1,4 +1,3 @@
-import fiona
 import gzip
 import json
 import math
@@ -733,6 +732,9 @@ class Building:
         return b
 
     def generate_geopackage_file(self, gpkg_filename):
+        # fiona needs GDAL. Imported here, so that the rest of this module
+        # (building_map_server, nav graph generation) works without it.
+        import fiona
         print(f'generating GeoPackage in {gpkg_filename}')
         edge_schema = {
             'geometry': 'LineString',
